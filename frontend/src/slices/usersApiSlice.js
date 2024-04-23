@@ -60,9 +60,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
-    createFeedBack: builder.mutation({
+    createReading: builder.mutation({
       query: (data) => ({
-        url: `${USERS_URL}/${data.userId}/feedback`,
+        url: `${USERS_URL}/${data.userId}/reading`,
         method: "POST",
         body: data,
       }),
@@ -80,5 +80,5 @@ export const {
   useDeleteUserMutation,
   useGetUserByIDQuery,
   useUpdateUserMutation,
-  useCreateFeedBackMutation,
+  useCreateReadingMutation,
 } = userApiSlice;

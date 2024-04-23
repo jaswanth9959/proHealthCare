@@ -311,48 +311,85 @@ function Appointment() {
           </>
         )}
       {loadingUpdate && <p>Loading..</p>}
-      {userInfo.role === "doctor" && (
+
+      {(userInfo.role === "doctor" || userInfo.role === "user") && (
         <Row className="review">
           <Col md={{ span: 6, offset: 3 }}>
-            <h2>Patient History</h2>
-            {appointment?.testReport && (
-              <ListGroup>
-                {appointment?.user?.testReport.slice(0, -1).map((fb) => (
-                  <ListGroup.Item key={fb._id}>
-                    <Row>
-                      <Col md={6}>Report By: </Col>
-                      <Col md={6}> {fb.name}</Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>Patient Weight</Col>
-                      <Col md={6}>{fb.weight}</Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>Patient Height</Col>
-                      <Col md={6}>{fb.height}</Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>Patient Age</Col>
-                      <Col md={6}>{fb.age}</Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>Patient Blood Pressure</Col>
-                      <Col md={6}>{fb.bp}</Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>Date</Col>
-                      <Col md={6}>{fb.createdAt.substring(0, 10)}</Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>Report</Col>
-                      <Col md={6}>{fb.report}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            )}
+            <h2>Patient Trackings</h2>
+            <ListGroup>
+              {appointment?.user?.readings.map((fb) => (
+                <ListGroup.Item key={fb._id}>
+                  <Row>
+                    <Col md={6}>Date:</Col>
+                    <Col md={6}>{fb.createdAt.substring(0, 10)}</Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={6}>Weight:</Col>
+                    <Col md={6}>{fb.weight}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>Sugar Level:</Col>
+                    <Col md={6}>{fb.sugar}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>Blood Pressure:</Col>
+                    <Col md={6}>{fb.bp}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>A1c Value:</Col>
+                    <Col md={6}>{fb.a1c}</Col>
+                  </Row>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
           </Col>
         </Row>
+      )}
+      {userInfo.role === "doctor" && (
+        <>
+          <Row className="review">
+            <Col md={{ span: 6, offset: 3 }}>
+              <h2>Patient History</h2>
+              {appointment?.testReport && (
+                <ListGroup>
+                  {appointment?.user?.testReport.slice(0, -1).map((fb) => (
+                    <ListGroup.Item key={fb._id}>
+                      <Row>
+                        <Col md={6}>Report By: </Col>
+                        <Col md={6}> {fb.name}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Weight</Col>
+                        <Col md={6}>{fb.weight}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Height</Col>
+                        <Col md={6}>{fb.height}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Age</Col>
+                        <Col md={6}>{fb.age}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Blood Pressure</Col>
+                        <Col md={6}>{fb.bp}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Date</Col>
+                        <Col md={6}>{fb.createdAt.substring(0, 10)}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Report</Col>
+                        <Col md={6}>{fb.report}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+            </Col>
+          </Row>
+        </>
       )}
 
       <Row className="review">

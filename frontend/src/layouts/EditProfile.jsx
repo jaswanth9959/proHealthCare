@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useProfileMutation,
   useGetUserByIDQuery,
+  useCreateReadingMutation,
 } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { Link } from "react-router-dom";
@@ -14,12 +15,36 @@ function EditProfile() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [sugar, setSugar] = useState("");
+  const [weight, setWeight] = useState("");
+  const [bp, setBp] = useState("");
+  const [a1c, setA1c] = useState("");
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
-  const { data: user, isLoading } = useGetUserByIDQuery(userInfo._id);
+  const { data: user, refetch, isLoading } = useGetUserByIDQuery(userInfo._id);
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
     useProfileMutation();
+
+  const [createReading, { isLoading: loadingReading }] =
+    useCreateReadingMutation();
+
+  const submitHandler1 = async (e) => {
+    e.preventDefault();
+    try {
+      await createReading({
+        sugar,
+        bp,
+        weight,
+        a1c,
+        userId: userInfo._id,
+      }).unwrap();
+      refetch();
+      window.alert("Readings Added successfully");
+    } catch (err) {
+      window.alert(err?.data?.message || err.error);
+    }
+  };
 
   const latestTest = user?.testReport[user?.testReport.length - 1];
 
@@ -129,6 +154,92 @@ function EditProfile() {
             Update
           </Button>
         </Form>
+      </>
+      <>
+        <Row className="review">
+          <Col md={{ span: 6, offset: 3 }}>
+            <h2>Your Tracker</h2>
+            <ListGroup>
+              {user?.readings.map((fb) => (
+                <ListGroup.Item key={fb._id}>
+                  <Row>
+                    <Col md={6}>Date:</Col>
+                    <Col md={6}>{fb.createdAt.substring(0, 10)}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>Weight:</Col>
+                    <Col md={6}>{fb.weight}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>Sugar Level:</Col>
+                    <Col md={6}>{fb.sugar}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>Blood Pressure:</Col>
+                    <Col md={6}>{fb.bp}</Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>A1c Value:</Col>
+                    <Col md={6}>{fb.a1c}</Col>
+                  </Row>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+
+            <ListGroup>
+              <ListGroup.Item>
+                <h2>Enter Reading</h2>
+
+                {loadingReading && <p>Loading...</p>}
+
+                <Form onSubmit={submitHandler1}>
+                  <Form.Group className="my-2" controlId="comment1">
+                    <Form.Label>Weight</Form.Label>
+                    <Form.Control
+                      type="text"
+                      required
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+
+                  <Form.Group className="my-2" controlId="comment2">
+                    <Form.Label>Blood Pressure</Form.Label>
+                    <Form.Control
+                      type="text"
+                      required
+                      value={bp}
+                      onChange={(e) => setBp(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+
+                  <Form.Group className="my-2" controlId="comment3">
+                    <Form.Label>Sugar Levels</Form.Label>
+                    <Form.Control
+                      type="text"
+                      required
+                      value={sugar}
+                      onChange={(e) => setSugar(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <Form.Group className="my-2" controlId="comment4">
+                    <Form.Label>A1c Reading</Form.Label>
+                    <Form.Control
+                      type="text"
+                      required
+                      value={a1c}
+                      onChange={(e) => setA1c(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+
+                  <Button type="submit" variant="primary">
+                    Add
+                  </Button>
+                </Form>
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+        </Row>
       </>
       {isLoading ? (
         <p>Loading...</p>

@@ -11,6 +11,7 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  createReading,
 } from "../controllers/user.js";
 
 router.route("/").post(registerUser).get(getUsers);
@@ -21,6 +22,6 @@ router
 router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
 router.post("/logout", logoutUser);
 router.post("/login", loginUser);
-// router.route("/:id/feedback").post(createFeedback);
+router.route("/:id/reading").post(createReading);
 
 export default router;

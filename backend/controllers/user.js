@@ -184,26 +184,26 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-// const createFeedback = asyncHandler(async (req, res) => {
-//   const { feedBack, doctorId, name } = req.body;
+const createReading = asyncHandler(async (req, res) => {
+  const { weight, bp, a1c, sugar } = req.body;
 
-//   const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id);
 
-//   if (user) {
-//     const feedback = {
-//       name: name,
-//       feedBack,
-//       doctor: doctorId,
-//       date: Date.now(),
-//     };
-//     user.feedBack.push(feedback);
-//     await user.save();
-//     res.status(201).json({ message: "feedBack added" });
-//   } else {
-//     res.status(404);
-//     throw new Error("user not found");
-//   }
-// });
+  if (user) {
+    const feedback = {
+      weight,
+      bp,
+      a1c,
+      sugar,
+    };
+    user.readings.push(feedback);
+    await user.save();
+    res.status(201).json({ message: "Readings added" });
+  } else {
+    res.status(404);
+    throw new Error("user not found");
+  }
+});
 
 export {
   getUsers,
@@ -215,5 +215,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
-  // createFeedback,
+  createReading,
 };

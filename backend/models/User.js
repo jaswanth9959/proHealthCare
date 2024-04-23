@@ -24,6 +24,16 @@ const TestReportSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const ReadingSchema = new mongoose.Schema(
+  {
+    weight: { type: String },
+    bp: { type: String },
+    sugar: { type: String },
+    a1c: { type: String },
+  },
+  { timestamps: true }
+);
+
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -52,6 +62,7 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
     testReport: [TestReportSchema],
+    readings: [ReadingSchema],
   },
   { timestamps: true }
 );
