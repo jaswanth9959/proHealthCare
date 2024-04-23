@@ -137,6 +137,13 @@ function Appointment() {
       }
     });
   }
+
+  async function onApproveTest() {
+    await payAppointment({ appointmentId, details: { payer: {} } });
+    refetch();
+
+    window.alert("payment successful");
+  }
   function onError(err) {
     window.alert(err?.data?.message || err.message);
   }
@@ -161,8 +168,6 @@ function Appointment() {
     await updateStatus(appointmentId);
     refetch();
   };
-
-  console.log(appointment);
 
   const handleCancel = async () => {
     await cancelAppointment({ appointmentId });
@@ -279,6 +284,7 @@ function Appointment() {
                             </div>
                           </div>
                         )}
+                        {/* <Button onClick={onApproveTest}>Pay</Button> */}
                       </div>
                     )}
                     {isLoading && <p>Loadng</p>}
