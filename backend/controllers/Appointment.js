@@ -148,18 +148,26 @@ const createTestReport = asyncHandler(async (req, res) => {
 
   const appointment = await Appointment.findById(req.params.id);
 
+  const user = await User.findById(appointment.user);
+
   if (appointment) {
     const feedback = {
       name: name,
       report,
       test: testId,
+      weight,
+      height,
+      age,
+      bp,
     };
-    appointment.patientInfo.weight = weight;
-    appointment.patientInfo.height = height;
-    appointment.patientInfo.age = age;
-    appointment.patientInfo.bp = bp;
+    // appointment.patientInfo.weight = weight;
+    // appointment.patientInfo.height = height;
+    // appointment.patientInfo.age = age;
+    // appointment.patientInfo.bp = bp;
     appointment.testReport.push(feedback);
+    user.testReport.push(feedback);
     appointment.Status = "ready for doctor";
+    await user.save();
     await appointment.save();
     res.status(201).json({ message: "report added" });
   } else {

@@ -23,6 +23,7 @@ const doctors = [
     email: "lab@gmail.com",
     phone: "1234567890",
     password: bcrypt.hashSync("123456", 10),
+    role: "lab",
   },
 ];
 

@@ -60,7 +60,7 @@ function EditTest() {
         </Button>
       </Link>
       <>
-        <h1>Edit Doctor</h1>
+        <h1>Edit Test Details</h1>
         {loadingDoc && <p>Loading...</p>}
         {loadingUpdate && <p>Loading...</p>}
 

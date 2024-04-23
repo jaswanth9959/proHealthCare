@@ -37,6 +37,10 @@ const TestReportSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    weight: { type: String },
+    height: { type: String },
+    age: { type: String },
+    bp: { type: String },
     report: {
       type: String,
       required: true,
@@ -56,12 +60,6 @@ const appointmentSchema = mongoose.Schema(
       testName: { type: String, required: true },
       appointmentDate: { type: String, required: true },
       appointmentTime: { type: String, required: true },
-    },
-    patientInfo: {
-      weight: { type: String },
-      height: { type: String },
-      age: { type: String },
-      bp: { type: String },
     },
     test: {
       type: mongoose.Schema.Types.ObjectId,

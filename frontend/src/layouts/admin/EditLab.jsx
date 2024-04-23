@@ -55,7 +55,7 @@ function EditLab() {
         </Button>
       </Link>
       <>
-        <h1>Edit Doctor</h1>
+        <h1>Edit Lab Officer</h1>
         {loadingDoc && <p>Loading...</p>}
         {loadingUpdate && <p>Loading...</p>}
 

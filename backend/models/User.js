@@ -1,6 +1,29 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+const TestReportSchema = new mongoose.Schema(
+  {
+    test: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Test",
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    weight: { type: String },
+    height: { type: String },
+    age: { type: String },
+    bp: { type: String },
+    report: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -28,6 +51,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: "user",
     },
+    testReport: [TestReportSchema],
   },
   { timestamps: true }
 );

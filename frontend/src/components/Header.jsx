@@ -49,7 +49,7 @@ function Header() {
                         <NavDropdown.Item>Manage Doctors</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/labs">
-                        <NavDropdown.Item>Manage Labs</NavDropdown.Item>
+                        <NavDropdown.Item>Manage Lab Officers</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/tests">
                         <NavDropdown.Item>Manage Tests</NavDropdown.Item>

@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useProfileMutation } from "../slices/usersApiSlice";
+import {
+  useProfileMutation,
+  useGetUserByIDQuery,
+} from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { Link } from "react-router-dom";
 function EditProfile() {
@@ -14,8 +17,11 @@ function EditProfile() {
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+  const { data: user, isLoading } = useGetUserByIDQuery(userInfo._id);
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
     useProfileMutation();
+
+  const latestTest = user?.testReport[user?.testReport.length - 1];
 
   useEffect(() => {
     setFirstName(userInfo.firstName);
@@ -124,6 +130,93 @@ function EditProfile() {
           </Button>
         </Form>
       </>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <Row className="review">
+            {user?.testReport.length !== 0 && (
+              <Col md={{ span: 6, offset: 3 }}>
+                <h2>Medical History</h2>
+
+                <ListGroup>
+                  {user?.testReport.slice(0, -1).map((fb) => (
+                    <ListGroup.Item key={fb._id}>
+                      <Row>
+                        <Col md={6}>Report By: </Col>
+                        <Col md={6}> {fb.name}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Weight</Col>
+                        <Col md={6}>{fb.weight}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Height</Col>
+                        <Col md={6}>{fb.height}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Age</Col>
+                        <Col md={6}>{fb.age}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Blood Pressure</Col>
+                        <Col md={6}>{fb.bp}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Date</Col>
+                        <Col md={6}>{fb.createdAt.substring(0, 10)}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Report</Col>
+                        <Col md={6}>{fb.report}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Col>
+            )}
+          </Row>
+          <Row className="review">
+            {user?.testReport.length !== 0 && (
+              <Col md={{ span: 6, offset: 3 }}>
+                <h2>Latest Test Report</h2>
+                <ListGroup>
+                  <ListGroup.Item key={latestTest._id}>
+                    <Row>
+                      <Col md={6}>Report By: </Col>
+                      <Col md={6}> {latestTest.name}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Weight</Col>
+                      <Col md={6}>{latestTest.weight}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Height</Col>
+                      <Col md={6}>{latestTest.height}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Age</Col>
+                      <Col md={6}>{latestTest.age}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Blood Pressure</Col>
+                      <Col md={6}>{latestTest.bp}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Date</Col>
+                      <Col md={6}>{latestTest.createdAt.substring(0, 10)}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Report</Col>
+                      <Col md={6}>{latestTest.report}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Col>
+            )}
+          </Row>
+        </>
+      )}
     </Container>
   );
 }
