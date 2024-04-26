@@ -8,6 +8,7 @@ const doctors = [
     phone: "1234567890",
     password: bcrypt.hashSync("123456", 10),
     role: "admin",
+    firstLogin: false,
   },
   {
     firstName: "doctor",
