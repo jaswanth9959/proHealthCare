@@ -39,6 +39,7 @@ import AddTest from "./layouts/admin/AddTest";
 import EditTest from "./layouts/admin/EditTest";
 import Appointments from "./layouts/admin/Appoinments";
 import ReadyAppointments from "./layouts/admin/ReadyAppointments";
+import Profile from "./layouts/admin/Profile";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -68,6 +69,7 @@ const router = createBrowserRouter(
         <Route path="/admin/test/add" element={<AddTest />} />
         <Route path="/admin/test/:id" element={<EditTest />} />
         <Route path="/admin/appointments" element={<Appointments />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/admin/readyappointments"
           element={<ReadyAppointments />}

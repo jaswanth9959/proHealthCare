@@ -41,6 +41,11 @@ const TestReportSchema = new mongoose.Schema(
     height: { type: String },
     age: { type: String },
     bp: { type: String },
+    hba1c: { type: String },
+    fast: { type: String },
+    post: { type: String },
+    random: { type: String },
+    pulse: { type: String },
     report: {
       type: String,
       required: true,
@@ -66,6 +71,7 @@ const appointmentSchema = mongoose.Schema(
       required: true,
       ref: "Test",
     },
+    feedback: { type: String },
 
     paymentID: {
       type: mongoose.Schema.Types.ObjectId,

@@ -9,6 +9,7 @@ function AddDoctor() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
 
   // const ar = [];
 
@@ -92,10 +93,19 @@ function AddDoctor() {
           <Form.Group controlId="description1">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              type="text"
+              type="password"
               placeholder="Enter Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="description2">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm Password"
+              value={cpassword}
+              onChange={(e) => setCpassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
 

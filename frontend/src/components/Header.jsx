@@ -38,7 +38,7 @@ function Header() {
                 userInfo.role === "admin" ? (
                   <>
                     <NavDropdown
-                      title={userInfo.firstname}
+                      title={userInfo.firstName}
                       id="username"
                       className="text-light"
                     >

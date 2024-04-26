@@ -28,6 +28,10 @@ const DoctorSchema = new mongoose.Schema(
       required: true,
       default: "doctor",
     },
+    firstLogin: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

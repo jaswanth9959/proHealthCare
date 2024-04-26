@@ -24,12 +24,13 @@ const loginDoctor = asyncHandler(async (req, res) => {
 
     res.json({
       _id: staff._id,
-      firstname: staff.firstName,
-      lastname: staff.lastName,
+      firstName: staff.firstName,
+      lastName: staff.lastName,
       email: staff.email,
       role: staff.role,
       ssn: staff.ssn,
       phone: staff.phone,
+      firstLogin: staff.firstLogin,
       token,
     });
   } else {
@@ -105,6 +106,7 @@ const updateDoctorProfile = asyncHandler(async (req, res) => {
     user.lastName = req.body.lastName || user.lastName;
     user.email = req.body.email || user.email;
     user.phone = req.body.phone || user.phone;
+    user.firstLogin = false;
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -118,6 +120,7 @@ const updateDoctorProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       role: updatedUser.role,
       phone: updatedUser.phone,
+      firstLogin: updatedUser.firstLogin,
       token: req.body.token,
     });
   } else {
@@ -143,6 +146,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
     email: staff.email,
     role: staff.role,
     phone: staff.phone,
+    firstLogin: staff.firstLogin,
   });
 });
 

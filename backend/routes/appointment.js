@@ -19,4 +19,5 @@ router.route("/:id/cancel").put(updateAppointmentToCancel);
 router.route("/myappointments/:id").get(getMyAppointments);
 router.route("/:id/testreport").post(createTestReport);
 router.route("/:id/pre").post(createPrescription);
+router.route("/:id/feed").post(updateStatus);
 export default router;

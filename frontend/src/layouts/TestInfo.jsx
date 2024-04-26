@@ -89,25 +89,40 @@ function TestInfo() {
                   <Col className="py-2">
                     <div className="rSelectRooms">
                       {test.schedule.map((slot) => (
-                        <div className="room" key={slot.slot}>
-                          <input
-                            style={{ width: "20px", height: "20px" }}
-                            type="checkbox"
-                            value={slot._id}
-                            onChange={handleSelect}
-                            disabled={!isAvailable(slot)}
-                          />
-                          <label>{slot.slot} </label>
-                          <p>
-                            <strong>
-                              {" "}
-                              {isAvailable(slot)
-                                ? "(Available)"
-                                : "(Not Available)"}
-                            </strong>
-                          </p>
-                        </div>
+                        <>
+                          {isAvailable(slot) && (
+                            <div className="room" key={slot.slot}>
+                              <>
+                                <input
+                                  style={{ width: "20px", height: "20px" }}
+                                  type="checkbox"
+                                  value={slot._id}
+                                  onChange={handleSelect}
+                                  disabled={!isAvailable(slot)}
+                                />
+                                <label>{slot.slot} </label>
+                              </>
+                            </div>
+                          )}
+                        </>
                       ))}
+
+                      {/* {test.schedule.map((slot) => (
+                        <div className="room" key={slot.slot}>
+                          {isAvailable(slot) && (
+                            <>
+                              <input
+                                style={{ width: "20px", height: "20px" }}
+                                type="checkbox"
+                                value={slot._id}
+                                onChange={handleSelect}
+                                disabled={!isAvailable(slot)}
+                              />
+                              <label>{slot.slot} </label>
+                            </>
+                          )}
+                        </div>
+                      ))} */}
                     </div>
                   </Col>
                 </Card.Body>

@@ -17,10 +17,12 @@ export const appointmentApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
     updateStatus: builder.mutation({
-      query: (id) => ({
-        url: `${APPOINTMENT_URL}/${id}`,
+      query: (data) => ({
+        url: `${APPOINTMENT_URL}/${data.appointmentId}`,
         method: "PUT",
+        body: data,
       }),
+
       providesTags: ["Appointment"],
     }),
     getClientID: builder.query({
@@ -80,6 +82,9 @@ export const appointmentApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Appointment"],
     }),
+    //     createFeed: builder.mutation({
+    // query
+    //     }),
     createPre: builder.mutation({
       query: (data) => ({
         url: `${APPOINTMENT_URL}/${data.appointmentId}/pre`,

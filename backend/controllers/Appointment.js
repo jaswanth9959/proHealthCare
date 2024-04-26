@@ -47,7 +47,8 @@ const getAppointmentById = asyncHandler(async (req, res) => {
 const updateStatus = asyncHandler(async (req, res) => {
   const appointment = await Appointment.findById(req.params.id);
   if (appointment) {
-    appointment.Status = "completed";
+    appointment.Status = "Completed";
+    appointment.feedback = req.body.comment;
     const updatedappointment = await appointment.save();
 
     res.json(updatedappointment);
@@ -87,30 +88,17 @@ const updateAppointmentToPaid = asyncHandler(async (req, res) => {
 });
 
 const updateAppointmentToCancel = asyncHandler(async (req, res) => {
-  console.log("cancel");
   const appointment = await Appointment.findById(req.params.id).populate(
-    "user doctor"
+    "user test"
   );
 
   if (appointment) {
-    await Doctor.updateOne(
+    await Test.updateOne(
       { "schedule._id": appointment.slot_id },
       { $pull: { "schedule.$.unavailableDates": appointment.date } }
     );
     appointment.Status = "Canceled";
     const updatedappointment = await appointment.save();
-    var mailOptions = {
-      from: "jayreddy9959@gmail.com",
-      to: appointment.user.email,
-      subject: "Appointment Cancelation Mail",
-      text: `Your appointment with Dr.${appointment.doctor.firstName} on ${appointment.details.appointmentDate} from ${appointment.details.appointmentTime} is canceled.`,
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      }
-    });
 
     res.json(updatedappointment);
   } else {
@@ -144,7 +132,20 @@ const getReadyAppointments = asyncHandler(async (req, res) => {
 });
 
 const createTestReport = asyncHandler(async (req, res) => {
-  const { report, testId, name, weight, height, age, bp } = req.body;
+  const {
+    report,
+    testId,
+    name,
+    weight,
+    height,
+    age,
+    bp,
+    hba1c,
+    fast,
+    post,
+    random,
+    pulse,
+  } = req.body;
 
   const appointment = await Appointment.findById(req.params.id);
 
@@ -159,6 +160,11 @@ const createTestReport = asyncHandler(async (req, res) => {
       height,
       age,
       bp,
+      hba1c,
+      fast,
+      post,
+      random,
+      pulse,
     };
     // appointment.patientInfo.weight = weight;
     // appointment.patientInfo.height = height;

@@ -7,8 +7,9 @@ function ReadyAppointments() {
   const { data, isLoading, error } = useGetAppointmentsQuery();
 
   const appointments = data?.filter(
-    (a) => a.Status === "ready for doctor" || a.Status === "completed"
+    (a) => a.Status === "ready for doctor" || a.Status === "Completed"
   );
+
   return (
     <Row>
       <Col md={{ span: 10, offset: 1 }} className="text-center my-3">
