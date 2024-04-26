@@ -40,6 +40,10 @@ function EditProfile() {
         userId: userInfo._id,
       }).unwrap();
       refetch();
+      setA1c("");
+      setBp("");
+      setSugar("");
+      setWeight("");
       window.alert("Readings Added successfully");
     } catch (err) {
       window.alert(err?.data?.message || err.error);
@@ -255,31 +259,39 @@ function EditProfile() {
                     <ListGroup.Item key={fb._id}>
                       <Row>
                         <Col md={6}>Report By: </Col>
-                        <Col md={6}> {fb.name}</Col>
+                        <Col md={6}> {fb?.name}</Col>
                       </Row>
                       <Row>
-                        <Col md={6}>Patient Weight</Col>
+                        <Col md={6}>Patient Weight:</Col>
                         <Col md={6}>{fb.weight}</Col>
                       </Row>
                       <Row>
-                        <Col md={6}>Patient Height</Col>
+                        <Col md={6}>Patient Height:</Col>
                         <Col md={6}>{fb.height}</Col>
                       </Row>
                       <Row>
-                        <Col md={6}>Patient Age</Col>
+                        <Col md={6}>Patient DOB:</Col>
                         <Col md={6}>{fb.age}</Col>
                       </Row>
                       <Row>
-                        <Col md={6}>Patient Blood Pressure</Col>
-                        <Col md={6}>{fb.bp}</Col>
+                        <Col md={6}>Patient HbA1c Levels:</Col>
+                        <Col md={6}>{fb.hba1c}</Col>
                       </Row>
                       <Row>
-                        <Col md={6}>Date</Col>
-                        <Col md={6}>{fb.createdAt.substring(0, 10)}</Col>
+                        <Col md={6}>Patient Fasting Glucose Levels:</Col>
+                        <Col md={6}>{fb.fast}</Col>
                       </Row>
                       <Row>
-                        <Col md={6}>Report</Col>
-                        <Col md={6}>{fb.report}</Col>
+                        <Col md={6}>Patient Fasting Glucose Levels:</Col>
+                        <Col md={6}>{fb.post}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Random Glucose Readings:</Col>
+                        <Col md={6}>{fb.random}</Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>Patient Heart Rate:</Col>
+                        <Col md={6}>{fb.pulse}</Col>
                       </Row>
                     </ListGroup.Item>
                   ))}
@@ -312,6 +324,27 @@ function EditProfile() {
                     <Row>
                       <Col md={6}>Patient Blood Pressure</Col>
                       <Col md={6}>{latestTest.bp}</Col>
+                    </Row>
+
+                    <Row>
+                      <Col md={6}>Patient HbA1c Levels:</Col>
+                      <Col md={6}>{latestTest.hba1c}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Fasting Glucose Levels:</Col>
+                      <Col md={6}>{latestTest.fast}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Fasting Glucose Levels:</Col>
+                      <Col md={6}>{latestTest.post}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Random Glucose Readings:</Col>
+                      <Col md={6}>{latestTest.random}</Col>
+                    </Row>
+                    <Row>
+                      <Col md={6}>Patient Heart Rate:</Col>
+                      <Col md={6}>{latestTest.pulse}</Col>
                     </Row>
                     <Row>
                       <Col md={6}>Date</Col>
